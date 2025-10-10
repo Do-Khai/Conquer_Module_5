@@ -1,0 +1,23 @@
+stages:
+  prepare:
+    cmd: python src/data_prep.py
+    deps:
+      - src/data_prep.py
+      - data/advertising.csv
+    outs:
+      - data/x_train_v1.npy
+      - data/x_test_v1.npy
+      - data/y_train_v1.npy
+      - data/y_test_v1.npy
+
+  train:
+    cmd: python src/train.py --version v1
+    deps:
+      - src/train.py
+      - data/x_train_v1.npy
+      - data/y_train_v1.npy
+      - params.yaml
+    outs:
+      - models/model_v1.npy
+      - models/metrics_v1.json
+      - models/loss_curve.png
