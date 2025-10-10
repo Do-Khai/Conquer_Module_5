@@ -38,7 +38,6 @@ def train_model(version):
         'dataset_size': len(X_train_b),
         'dataset_version': version,
         'model': f'model_{version}',
-        'parameters': params['model']
     }
 
     with open(f'models/metrics_{version}.json', 'w') as f:

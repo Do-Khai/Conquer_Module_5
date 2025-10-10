@@ -1,0 +1,62 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/data_prep.py
+    deps:
+    - path: data/advertising.csv
+      hash: md5
+      md5: c7313c34c7030050bee4c29e2260ea68
+      size: 4062
+    - path: src/data_prep.py
+      hash: md5
+      md5: cc77d3437bf12ba4923b78470c833742
+      size: 987
+    outs:
+    - path: data/x_test_v1.npy
+      hash: md5
+      md5: e752929c55eadde9148cb5e72088ff33
+      size: 1408
+    - path: data/x_train_v1.npy
+      hash: md5
+      md5: 4fcb0f6666b794abf5b1c4c855168428
+      size: 5248
+    - path: data/y_test_v1.npy
+      hash: md5
+      md5: fe0690cb97ba5cd9a5a9dccd4a7943ee
+      size: 448
+    - path: data/y_train_v1.npy
+      hash: md5
+      md5: c8643357b2acac70d4375d7e68fc24c2
+      size: 1408
+  train:
+    cmd: python src/train.py --version v1
+    deps:
+    - path: data/x_train_v1.npy
+      hash: md5
+      md5: 4fcb0f6666b794abf5b1c4c855168428
+      size: 5248
+    - path: data/y_train_v1.npy
+      hash: md5
+      md5: c8643357b2acac70d4375d7e68fc24c2
+      size: 1408
+    - path: params.yaml
+      hash: md5
+      md5: e269cf4b40dee21e30d736dc87aa7e54
+      size: 40
+    - path: src/train.py
+      hash: md5
+      md5: 6ded0ff9c5e7bee54a41efb51b9be937
+      size: 1652
+    outs:
+    - path: models/loss_curve.png
+      hash: md5
+      md5: e0696dcc53454f289ca32a8572d79181
+      size: 16078
+    - path: models/metrics_v1.json
+      hash: md5
+      md5: 9a92bd36dfa8e06082d3bf0cf699c2a1
+      size: 75
+    - path: models/model_v1.npy
+      hash: md5
+      md5: fe8e6518453417386826b059a101c6e1
+      size: 160
