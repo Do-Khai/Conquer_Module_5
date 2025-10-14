@@ -60,3 +60,19 @@ stages:
       hash: md5
       md5: fe8e6518453417386826b059a101c6e1
       size: 160
+  prepare_feast:
+    cmd: python src/prepare_feast_data.py
+    deps:
+    - path: data/advertising.csv
+      hash: md5
+      md5: c7313c34c7030050bee4c29e2260ea68
+      size: 4062
+    - path: src/prepare_feast_data.py
+      hash: md5
+      md5: dc497d833dd0a16b446301b8d4f53257
+      size: 1004
+    outs:
+    - path: feature_repo/data_processed/advertising.parquet
+      hash: md5
+      md5: 7d0ab5633f8ecf35eaa6aa6e2e6b4f06
+      size: 10743
