@@ -1,77 +1,63 @@
-# 🧮 Linear Regression (Vectorized) with DVC
+# 📊 Linear Regression with DVC & Feast
 
-Dự án này minh họa quy trình huấn luyện mô hình **Linear Regression** sử dụng **Batch Gradient Descent (Vectorized)**,  
-được quản lý toàn bộ bằng **DVC (Data Version Control)** nhằm đảm bảo khả năng *tái tạo, theo dõi và quản lý dữ liệu + mô hình*.
+## 🧠 Overview
+
+This project demonstrates a **complete ML pipeline** combining:
+
+- **Machine Learning (Linear Regression)**
+- **Data Versioning with DVC**
+- **Feature Store Management using Feast**
+
+It aims to provide a clear example of how to:
+1. Version control your ML data and experiments.
+2. Manage, materialize, and serve features consistently.
+3. Build a reproducible and production-ready ML workflow.
 
 ---
+## 📋 Prerequisites
 
-## 🚀 Mục tiêu
 
-> Xây dựng pipeline tự động hóa từ bước **Data Preparation → Model Training → Model Tracking**  
-> Giúp bất kỳ ai clone repo đều có thể **reproduce** toàn bộ kết quả chỉ bằng 1 lệnh `dvc repro`.
+Python 3.8+
+
+Git
+
 
 ---
+## 🚀 Quick Start
 
-## ⚙️ Cài đặt môi trường
-🧩 Yêu cầu:
-
-Python ≥ 3.9
-
-
-
-## 🔧 Cài đặt:
 ```bash
-# Clone project
-git clone https://github.com/Do-Khai/LR_Vectorization.git
-cd LR_Vectorization
-
-# Cài dependencies
+conda create -n dvc python=3.11 -y
+conda activate dvc
 pip install -r requirements.txt
-
 ```
 
-## 🧭 Luồng hoạt động DVC (Data Version Control Flow)
-```
-        ┌────────────────────────┐
-        │     advertising.csv    │
-        └────────────┬───────────┘
-                     │
-          [ prepare stage: data_prep.py ]
-                     │
-     ┌───────────────▼────────────────┐
-     │     x_train.npy, y_train.npy   │
-     └───────────────┬────────────────┘
-                     │
-           [ train stage: train.py ]
-                     │
-     ┌───────────────▼────────────────┐
-     │   model.npy, metrics.json      │
-     └────────────────────────────────┘
+```bash
+# Clone the repository
+https://github.com/Do-Khai/Conquer_Module_5.git
+cd Conquer_Module_5
 
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-## 🧠 Tham số huấn luyện
-Được lưu trong file `params.yaml`:
+---
+## 🤖 Basic Pipeline 
+```scss
+advertising.csv
+   ↓
+prepare_feast_data.py (generate parquet)
+   ↓
+Feast (apply + materialize)
+   ↓
+data_prep.py (split train/test)
+   ↓
+train.py (train model)
 ```
-train:
-  epochs: 50
-  learning_rate: 0.00001
-model:
-  type: linear_regression
+## 🚀 Production Considerations
+To adapt this demo for production:
 
-```
+- Scalability: Use Spark for large datasets.
+- Orchestration: Integrate Apache Airflow or Prefect for pipeline management.
+- Monitoring: Use MLflow for experiment tracking and Prometheus for metrics.
+- CI/CD: Implement automated testing and deployment pipelines.
 
-## 📊 Kết quả huấn luyện
-File `models/metrics_v1.json` chứa thông tin mô hình:
-```
-{
-  "dataset_size": 160,
-  "dataset_version": "v1",
-  "model": "model_v1",
-  "parameters": {
-    "epochs": 50,
-    "learning_rate": 0.00001
-  }
-}
-
-```
